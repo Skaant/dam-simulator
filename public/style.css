@@ -1,0 +1,53 @@
+body {
+  font-family: sans-serif;
+}
+.bg-dark {
+  background-color: #444;
+}
+.text-dark {
+  color: #444;
+}
+.bg-light {
+  background-color: #eee;
+}
+.text-light {
+  color: #eee;
+}
+.mt-4 {
+  margin-top: 0.5rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.d-flex {
+  display: flex;
+}
+.space-between {
+  justify-content: space-between;
+}
+.align-end {
+  align-items: end;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.column {
+  flex-direction: column;
+}
+#level-view {
+  max-width: 800px;
+  margin: 10vh auto;
+}
+.soil-slice {
+  width: 80px;
+  height: 16px;
+}
+.bg-soil-mulch-humus {
+  background-color: rgb(209, 129, 83);
+}
+.bg-soil-organic {
+  background-color: rgb(93, 76, 66);
+}
+.bg-soil-phreatic {
+  background-color: rgb(168, 229, 255);
+}
