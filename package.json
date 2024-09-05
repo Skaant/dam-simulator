@@ -4,7 +4,7 @@
   "description": "Build soil, collect species, heal the planet",
   "main": "src/app.tsx",
   "scripts": {
-    "start": "npx esbuild src/index.tsx --bundle --outfile=public/app.js --watch"
+    "start": "npx esbuild src/index.tsx --bundle --outfile=public/app.js --watch --sourcemap"
   },
   "keywords": [
     "permaculture",

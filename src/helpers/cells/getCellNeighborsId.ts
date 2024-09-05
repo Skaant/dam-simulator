@@ -1,5 +1,5 @@
 /** @returns `[-x, x, -y, y]` */
-export function getNeighborsId(
+export function getCellNeighborsId(
   x: number,
   y: number
 ): [string, string, string, string] {

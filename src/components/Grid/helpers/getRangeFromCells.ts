@@ -1,4 +1,4 @@
-import { Cell } from "../../../types/Grid/Cell";
+import { Cell } from "../../../types/Grid/cells/Cell";
 
 export function getRangeFromCells(cells: Cell[]) {
   let xMin = 0;

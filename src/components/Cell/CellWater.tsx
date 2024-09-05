@@ -5,26 +5,31 @@ import { Direction } from "../../types/Grid/Direction";
 import { getHex } from "../../helpers/getHex";
 
 export default function CellWater({
-  cell: { x, y, slopes, soilLayers },
+  cell: { slopes, water },
+  grid: { x, y },
 }: {
-  cell: Pick<CalculatedCell, "x" | "y" | "slopes" | "soilLayers">;
+  cell: Pick<CalculatedCell, "slopes" | "water">;
+  grid: { x: number; y: number };
 }) {
-  const totalSlopes = useMemo(
-    () =>
-      _.sum(Object.values(slopes).filter((slope) => typeof slope === "number")),
-    [slopes]
-  );
-  const topLayer = useMemo(() => soilLayers[0], [soilLayers]);
-  const waterRadius = useMemo(
-    () => ((topLayer.water || 0) / 2) * Math.PI,
-    [topLayer.water]
-  );
   return (
     <>
-      {topLayer.water}
-      {waterRadius}
-      {waterRadius && (
-        <circle cx={x + 32} cy={y + 32} r={waterRadius} fill={`#88ff`} />
+      {water > 0 && (
+        <>
+          <rect
+            x={x + 16}
+            y={y + 16 - water * 4}
+            width={32}
+            height={32}
+            fill="#88ff"
+          />
+          <rect
+            x={x + 16}
+            y={y + 48 - water * 4}
+            width={32}
+            height={water * 4}
+            fill="#44ff"
+          />
+        </>
       )}
       {(
         Object.entries(slopes) as [Direction, number | "equal" | "block"][]
@@ -34,16 +39,14 @@ export default function CellWater({
             ? undefined
             : value === "block"
             ? 0
-            : Math.round((value / totalSlopes) * 16) - 1;
+            : Math.round(value * 16) - 1;
         if (direction === "-x")
           return (
             <polygon
               points={`${x + 10}, ${y + 32} ${x + 16}, ${y + 28} ${x + 16}, ${
                 y + 36
               } ${x + 10}, ${y + 32}`}
-              fill={
-                percent === undefined ? "red" : `#bbf${percent.toString(16)}`
-              }
+              fill={percent === undefined ? "red" : `#bbf${getHex(percent)}`}
             />
           );
         if (direction === "x")
@@ -61,9 +64,7 @@ export default function CellWater({
               points={`${x + 32}, ${y + 54} ${x + 28}, ${y + 48} ${x + 36}, ${
                 y + 48
               } ${x + 32}, ${y + 54}`}
-              fill={
-                percent === undefined ? "red" : `#bbf${percent.toString(16)}`
-              }
+              fill={percent === undefined ? "red" : `#bbf${getHex(percent)}`}
             />
           );
         if (direction === "y")
@@ -72,9 +73,7 @@ export default function CellWater({
               points={`${x + 32}, ${y + 10} ${x + 28}, ${y + 16} ${x + 36}, ${
                 y + 16
               } ${x + 32}, ${y + 10}`}
-              fill={
-                percent === undefined ? "red" : `#bbf${percent.toString(16)}`
-              }
+              fill={percent === undefined ? "red" : `#bbf${getHex(percent)}`}
             />
           );
       })}
