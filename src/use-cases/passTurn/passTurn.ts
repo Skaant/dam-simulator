@@ -60,14 +60,15 @@ export async function passTurn({
   }
 
   // Remaining water restitution
-  let flowingCells: undefined | (Cell & CellSlopes)[] =
-    getFlowingWaterCells(cells);
+  let flowingCells: undefined | (Cell & CellSlopes)[] = getFlowingWaterCells({
+    cells,
+  });
   do {
     const res = await oneLevelWaterFlows({ cells, setCells, score, setScore });
     if (res) {
       cells = res.cells;
       score = res.score;
-      flowingCells = getFlowingWaterCells(cells);
+      flowingCells = getFlowingWaterCells({ cells });
     } else flowingCells = [];
   } while (flowingCells.length);
 }

@@ -7,6 +7,11 @@ import { Direction } from "../../types/Grid/Direction";
 import { scoreAtom } from "../../atoms/score.atom";
 import { SetAtom } from "../../types/_utilities/SetAtom";
 import { Score } from "../../types/Score";
+import { getCellsSlopes } from "../../helpers/cells/getCellsSlopes";
+import { getCellsNeighbors } from "../../helpers/cells/getCellsNeighbors";
+import { getEqualCellsArea } from "./_helpers/getEqualCellsArea";
+import _ from "lodash";
+import { oneSlopeWaterFlows } from "./_helpers/oneSlopeWaterFlows";
 
 export function oneLevelWaterFlows({
   cells: _cells,
@@ -29,7 +34,7 @@ export function oneLevelWaterFlows({
     let cells = { ..._cells };
     let score = { ..._score };
 
-    const flowingCells = getFlowingWaterCells(cells);
+    const flowingCells = getFlowingWaterCells({ cells });
     if (!flowingCells.length) resolve(false);
 
     let timer = 0;
@@ -43,38 +48,26 @@ export function oneLevelWaterFlows({
           const flowingSlopes = Object.entries(slopes).filter(
             ([_, slope]) => typeof slope === "number"
           ) as [Direction, number][];
-          const result =
-            cells &&
-            flowingSlopes.reduce(
-              ({ flowedNeighbors, waterLost }, [direction, slope]) => {
-                if (neighbors[direction] && cells[neighbors[direction]]) {
-                  flowedNeighbors[neighbors[direction]] = {
-                    ...cells[neighbors[direction]],
-                    water: cells[neighbors[direction]].water + 1 * slope,
-                  };
-                } else {
-                  waterLost += 1 * slope;
-                }
-                return { flowedNeighbors, waterLost };
-              },
-              {
-                flowedNeighbors: {},
-                waterLost: 0,
-              } as { flowedNeighbors: Index<Cell>; waterLost: number }
-            );
           cells = {
             ...cells,
             [id]: {
               ...cell,
               water: water - 1,
             },
-            ...(result ? result.flowedNeighbors : {}),
           };
+          let waterLost = 0;
+          flowingSlopes.forEach(([direction, slope]) => {
+            if (neighbors[direction] && cells[neighbors[direction]]) {
+              cells = oneSlopeWaterFlows(cells, neighbors[direction], slope);
+            } else {
+              waterLost += 1 * slope;
+            }
+          });
           setCells(() => cells);
-          if (result?.waterLost) {
+          if (waterLost) {
             score = {
               ...score,
-              waterLost: score.waterLost + result.waterLost,
+              waterLost: score.waterLost + waterLost,
             };
             setScore(() => score);
           }

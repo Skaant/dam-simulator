@@ -1,8 +1,8 @@
-import { Index } from "../../../types/_utilities/Index";
-import { Ref } from "../../../types/_utilities/Ref";
-import { Cell } from "../../../types/Grid/cells/Cell";
-import { Direction } from "../../../types/Grid/Direction";
-import { DirectionIndex } from "../../../types/Grid/DirectionIndex";
+import { Index } from "../../types/_utilities/Index";
+import { Ref } from "../../types/_utilities/Ref";
+import { Cell } from "../../types/Grid/cells/Cell";
+import { Direction } from "../../types/Grid/Direction";
+import { DirectionIndex } from "../../types/Grid/DirectionIndex";
 import { getCellNeighborsId } from "./getCellNeighborsId";
 
 export function getCellNeighbors(cell: Cell, cells: Index<Cell>) {
