@@ -52,15 +52,20 @@ export function oneLevelWaterFlows({
             ...cells,
             [id]: {
               ...cell,
-              water: water - 1,
+              water: water >= 1 ? water - 1 : 0,
             },
           };
           let waterLost = 0;
           flowingSlopes.forEach(([direction, slope]) => {
             if (neighbors[direction] && cells[neighbors[direction]]) {
-              cells = oneSlopeWaterFlows(cells, neighbors[direction], slope);
+              cells = oneSlopeWaterFlows(
+                cells,
+                neighbors[direction],
+                Math.min(water, 1),
+                slope
+              );
             } else {
-              waterLost += 1 * slope;
+              waterLost += Math.min(water, 1) * slope;
             }
           });
           setCells(() => cells);

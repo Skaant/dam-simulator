@@ -8,6 +8,8 @@ import { getEqualCellsArea } from "./getEqualCellsArea";
 export function oneSlopeWaterFlows(
   cells: Index<Cell>,
   id: Ref<Cell>,
+  /** 0 < flowingWater <= 1 */
+  flowingWater: number,
   slope: number
 ) {
   const _cells = { ...cells };
@@ -16,7 +18,7 @@ export function oneSlopeWaterFlows(
     _cells[id]
   );
   if (area && area.length) {
-    const _water = (1 * slope) / area.length;
+    const _water = (flowingWater * slope) / area.length;
     area.forEach(
       (_id) =>
         (_cells[_id] = {
@@ -27,7 +29,7 @@ export function oneSlopeWaterFlows(
   } else
     _cells[id] = {
       ..._cells[id],
-      water: _cells[id].water + 1 * slope,
+      water: _cells[id].water + flowingWater * slope,
     };
   return _cells;
 }

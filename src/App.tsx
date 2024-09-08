@@ -14,7 +14,7 @@ export default function App() {
     <div>
       <div>
         Eau tombée : {score.rainwater} / Eau perdue :{" "}
-        {Math.round(score.waterLost)} / Pluie restante : {turn.rain}
+        {score.waterLost.toString().slice(0, 5)} / Pluie restante : {turn.rain}
       </div>
       <button
         onClick={() =>
