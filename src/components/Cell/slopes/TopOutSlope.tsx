@@ -14,11 +14,11 @@ export default function TopOutSlope({
   return (
     <>
       <polygon
-        points={`${x + SIZE_1_2}, ${y + SIZE_1_4 + SIZE_1_8} ${x}, ${y} ${x}, ${
-          y - SIZE_1_8
-        } ${x + SIZE_1_2}, ${y} ${x + SIZE}, ${y - SIZE_1_8} ${
-          x + SIZE
-        }, ${y} ${x + SIZE_1_2}, ${y + SIZE_1_4 + SIZE_1_8}`}
+        points={`${x + SIZE_1_2}, ${y + SIZE_1_4 + SIZE_1_8} ${x}, ${y} ${
+          x + SIZE_1_2
+        }, ${y - SIZE_1_8}  ${x + SIZE}, ${y} ${x + SIZE_1_2}, ${
+          y + SIZE_1_4 + SIZE_1_8
+        }`}
         fill="#6b6"
       />
       <text

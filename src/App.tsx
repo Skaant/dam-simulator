@@ -12,10 +12,15 @@ export default function App() {
   const [score, setScore] = useAtom(scoreAtom);
   return (
     <div>
-      <div>
-        Eau tombée : {score.rainwater} / Eau perdue :{" "}
-        {score.waterLost.toString().slice(0, 5)} / Pluie restante : {turn.rain}
+      <div id="content">
+        <h1>Paerma</h1>
+        <div>
+          Eau tombée : {score.rainwater} / Eau perdue :{" "}
+          {score.waterLost.toString().slice(0, 5)} / Pluie restante :{" "}
+          {turn.rain}
+        </div>
       </div>
+      <br />
       <button
         onClick={() =>
           passTurn({ cells, setCells, score, setScore, turn, setTurn })

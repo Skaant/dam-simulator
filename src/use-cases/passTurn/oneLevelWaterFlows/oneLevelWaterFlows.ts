@@ -1,17 +1,11 @@
-import { createStore } from "jotai";
-import { getFlowingWaterCells } from "./_helpers/getFlowingWaterCells";
-import { cellsAtom } from "../../atoms/cells.atom";
-import { Cell } from "../../types/Grid/cells/Cell";
-import { Index } from "../../types/_utilities/Index";
-import { Direction } from "../../types/Grid/Direction";
-import { scoreAtom } from "../../atoms/score.atom";
-import { SetAtom } from "../../types/_utilities/SetAtom";
-import { Score } from "../../types/Score";
-import { getCellsSlopes } from "../../helpers/cells/getCellsSlopes";
-import { getCellsNeighbors } from "../../helpers/cells/getCellsNeighbors";
-import { getEqualCellsArea } from "./_helpers/getEqualCellsArea";
+import { getFlowingWaterCells } from "../_helpers/getFlowingWaterCells";
+import { Cell } from "../../../types/Grid/cells/Cell";
+import { Index } from "../../../types/_utilities/Index";
+import { Direction } from "../../../types/Grid/Direction";
+import { SetAtom } from "../../../types/_utilities/SetAtom";
+import { Score } from "../../../types/Score";
 import _ from "lodash";
-import { oneSlopeWaterFlows } from "./_helpers/oneSlopeWaterFlows";
+import { oneSlopeWaterFlows } from "./oneSlopeWaterFlows";
 
 export function oneLevelWaterFlows({
   cells: _cells,
@@ -34,7 +28,7 @@ export function oneLevelWaterFlows({
     let cells = { ..._cells };
     let score = { ..._score };
 
-    const flowingCells = getFlowingWaterCells({ cells });
+    const flowingCells = getFlowingWaterCells(cells);
     if (!flowingCells.length) resolve(false);
 
     let timer = 0;

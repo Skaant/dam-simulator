@@ -1,5 +1,5 @@
 import { rainFalls } from "./rainFalls";
-import { oneLevelWaterFlows } from "./oneLevelWaterFlows";
+import { oneLevelWaterFlows } from "./oneLevelWaterFlows/oneLevelWaterFlows";
 import { getFlowingWaterCells } from "./_helpers/getFlowingWaterCells";
 import { CellSlopes } from "../../types/Grid/cells/CellSlopes";
 import { Cell } from "../../types/Grid/cells/Cell";
@@ -60,15 +60,14 @@ export async function passTurn({
   }
 
   // Remaining water restitution
-  let flowingCells: undefined | (Cell & CellSlopes)[] = getFlowingWaterCells({
-    cells,
-  });
+  let flowingCells: undefined | (Cell & CellSlopes)[] =
+    getFlowingWaterCells(cells);
   do {
     const res = await oneLevelWaterFlows({ cells, setCells, score, setScore });
     if (res) {
       cells = res.cells;
       score = res.score;
-      flowingCells = getFlowingWaterCells({ cells });
+      flowingCells = getFlowingWaterCells(cells);
     } else flowingCells = [];
   } while (flowingCells.length);
 }

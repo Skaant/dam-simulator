@@ -11,17 +11,22 @@ export function getEqualCellsArea(
   area: Ref<Cell>[] = []
 ): Ref<Cell>[] | false {
   const slopesCells = getCellsSlopes(getCellsNeighbors(cells));
-  const equalNeighbors = Object.entries(slopesCells[cell.id].slopes)
-    .filter(([_, slope]) => slope === "equal")
+  const equalSlopes = Object.entries(slopesCells[cell.id].slopes).filter(
+    ([_, slope]) => slope === "equal"
+  );
+  const equalNeighbors = equalSlopes
     .map(
       ([direction]) => slopesCells[cell.id].neighbors[direction as Direction]!
     )
     .filter((id) => !area.includes(id));
   if (equalNeighbors.length) {
-    let _area = [...area, cell.id];
-    equalNeighbors.forEach((id) => {
-      _area.push(...(getEqualCellsArea(cells, cells[id], _area) || [id]));
-    });
+    let _area = [cell.id];
+    equalNeighbors.forEach((id) =>
+      _area.push(
+        ...(getEqualCellsArea(cells, cells[id], [...area, ..._area]) || [id])
+      )
+    );
     return _area;
-  } else return false;
+  } else if (equalSlopes.length) return [cell.id];
+  return false;
 }

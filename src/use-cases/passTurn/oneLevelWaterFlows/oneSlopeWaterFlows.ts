@@ -3,7 +3,7 @@ import { getCellsSlopes } from "../../../helpers/cells/getCellsSlopes";
 import { Index } from "../../../types/_utilities/Index";
 import { Ref } from "../../../types/_utilities/Ref";
 import { Cell } from "../../../types/Grid/cells/Cell";
-import { getEqualCellsArea } from "./getEqualCellsArea";
+import { getEqualCellsArea } from "../_helpers/getEqualCellsArea";
 
 export function oneSlopeWaterFlows(
   cells: Index<Cell>,
@@ -13,10 +13,7 @@ export function oneSlopeWaterFlows(
   slope: number
 ) {
   const _cells = { ...cells };
-  const area = getEqualCellsArea(
-    getCellsSlopes(getCellsNeighbors(_cells)),
-    _cells[id]
-  );
+  const area = getEqualCellsArea(_cells, _cells[id]);
   if (area && area.length) {
     const _water = (flowingWater * slope) / area.length;
     area.forEach(

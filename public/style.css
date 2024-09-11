@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #222;
 }
 .bg-dark {
   background-color: #444;
@@ -34,8 +35,14 @@ body {
 .column {
   flex-direction: column;
 }
-#level-view {
-  max-width: 800px;
+#content {
+  color: #ddd;
+}
+#grid-container {
+  width: 100%;
+}
+#grid-container > svg {
+  display: block;
   margin: 10vh auto;
 }
 .soil-slice {
