@@ -1,6 +1,6 @@
 import { rainFalls } from "./rainFalls";
-import { oneLevelWaterFlows } from "./oneLevelWaterFlows/oneLevelWaterFlows";
-import { getFlowingWaterCells } from "./_helpers/getFlowingWaterCells";
+import { waterFlows } from "./waterFlows/waterFlows";
+import { getFlowingWaterCells } from "./waterFlows/getFlowingWaterCells/getFlowingWaterCells";
 import { CellSlopes } from "../../types/Grid/cells/CellSlopes";
 import { Cell } from "../../types/Grid/cells/Cell";
 import { Index } from "../../types/_utilities/Index";
@@ -47,7 +47,7 @@ export async function passTurn({
     cells = rainResult.cells;
     score = rainResult.score;
     turn = rainResult.turn;
-    const flowResult = await oneLevelWaterFlows({
+    const flowResult = await waterFlows({
       cells,
       setCells,
       score,
@@ -63,7 +63,7 @@ export async function passTurn({
   let flowingCells: undefined | (Cell & CellSlopes)[] =
     getFlowingWaterCells(cells);
   do {
-    const res = await oneLevelWaterFlows({ cells, setCells, score, setScore });
+    const res = await waterFlows({ cells, setCells, score, setScore });
     if (res) {
       cells = res.cells;
       score = res.score;

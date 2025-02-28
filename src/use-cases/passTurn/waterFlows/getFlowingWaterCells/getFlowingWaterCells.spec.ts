@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { getFlowingWaterCells } from "./getFlowingWaterCells";
-import { createCells } from "../../../helpers/cells/createCells";
+import { createCells } from "../../../../helpers/cells/createCells";
 
 test("getFlowingWaterCells equal behavior", () => {
   const cells = createCells(3, 4, { z: 1 });

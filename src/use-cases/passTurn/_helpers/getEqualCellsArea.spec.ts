@@ -5,7 +5,7 @@ import { createCells } from "../../../helpers/cells/createCells";
 test("getEqualCellsArea 2x2", () => {
   const cells = createCells(2, 2, { z: 0 });
   cells["x1y1"].z = 1;
-  const area = getEqualCellsArea(cells, cells["x0y0"]);
+  const area = getEqualCellsArea({ cells }, "x0y0");
   expect(area).toBeTruthy();
   if (area) {
     expect(area.includes("x0y0"));
@@ -22,7 +22,7 @@ test("getEqualCellsArea 3x4", () => {
   cells["x2y2"].z = 2;
   cells["x1y1"].z = 0;
   cells["x1y2"].z = 0;
-  const res1 = getEqualCellsArea(cells, cells["x1y1"]);
+  const res1 = getEqualCellsArea({ cells }, "x1y1");
   expect(res1).toBeTruthy();
   if (res1) {
     expect(res1.includes("x1y1"));

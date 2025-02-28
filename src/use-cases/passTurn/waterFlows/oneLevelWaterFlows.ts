@@ -1,4 +1,4 @@
-import { getFlowingWaterCells } from "../_helpers/getFlowingWaterCells";
+import { getFlowingWaterCells } from "./getFlowingWaterCells/getFlowingWaterCells";
 import { Cell } from "../../../types/Grid/cells/Cell";
 import { Index } from "../../../types/_utilities/Index";
 import { Direction } from "../../../types/Grid/Direction";
@@ -7,7 +7,7 @@ import { Score } from "../../../types/Score";
 import _ from "lodash";
 import { oneSlopeWaterFlows } from "./oneSlopeWaterFlows";
 
-export function oneLevelWaterFlows({
+export function waterFlows({
   cells: _cells,
   setCells,
   score: _score,
